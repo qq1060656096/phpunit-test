@@ -1,0 +1,31 @@
+{
+    "name": "smile/phpunit-test",
+    "type": "library",
+    "description": "base library for PHP",
+    "keywords": ["phpunit", "phpunit demo"],
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Zhao Wei Jie",
+            "email": "1060656096@qq.com",
+            "role": "Founder and project lead"
+        }
+    ],
+    "autoload": {
+        "psr-4":{
+           "Smile\\PHPUnitTest\\Demo\\":"lib/Demo"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Smile\\PHPUnitTest\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "doctrine/dbal": "v2.5.4"
+    },
+    "require-dev": {
+        "symfony/yaml": "~2.3|~3.0",
+        "phpunit/phpunit": "^5.4"
+    }
+}

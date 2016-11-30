@@ -1,0 +1,24 @@
+Array
+(
+    [0] => Array
+        (
+            [line] => 5
+            [file] => E:\web\test-demo\data-dictionary\lib\Dictionary\MySQLDataDictionary.php
+            [message] => No docblock for element 'Smile\DataDictionary\Dictionary\MySQLDataDictionary'
+        )
+
+    [1] => Array
+        (
+            [line] => 11
+            [file] => E:\web\test-demo\data-dictionary\lib\Dictionary\MySQLDataDictionary.php
+            [message] => Undefined parameter documented:  in getAllTables().
+        )
+
+    [2] => Array
+        (
+            [line] => 14
+            [file] => E:\web\test-demo\data-dictionary\lib\Dictionary\MySQLDataDictionary.php
+            [message] => No docblock for element 'getTableColumnsInfo'
+        )
+
+)
