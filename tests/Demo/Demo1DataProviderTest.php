@@ -2,8 +2,8 @@
 namespace Smile\PHPUnitTest\Tests\Demo;
 use Smile\PHPUnitTest\Tests\SmilePHPUnitCase;
 
-$file = dirname(__DIR__).'/SmilePHPUnitCase.php';
-include_once($file);
+//$file = dirname(__DIR__).'/SmilePHPUnitCase.php';
+//include_once($file);
 
 class Cart{
     protected $user = null;
@@ -17,7 +17,7 @@ class Cart{
  * 测试demo Class DemoTest
  * @package Smile\PHPUnitTest\Tests\Demo
  */
-class Demo1DataProvider extends SmilePHPUnitCase
+class Demo1DataProviderTest extends SmilePHPUnitCase
 {
     /**
      * 数据提供者

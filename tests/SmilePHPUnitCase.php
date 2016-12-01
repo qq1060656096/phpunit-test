@@ -1,8 +1,8 @@
 <?php
 namespace Smile\PHPUnitTest\Tests;
 
-$vender = dirname(__DIR__);
-require_once $vender . '/vendor/autoload.php';
+//$vender = dirname(__DIR__);
+//require_once $vender . '/vendor/autoload.php';
 
 /**
  * Class SmilePHPUnitCase

@@ -1,0 +1,13 @@
+<phpunit bootstrap="../TestInit.php">
+
+    <testsuites>
+        <testsuite name="demo_order_tests_desc">
+            <file>../Demo/Demo4Group1Test.php</file>
+            <file>../Demo/Demo4Group0Test.php</file>
+            <file>../Demo/Demo3StubsTest.php</file>
+            <file>../Demo/Demo2FixtureTest.php</file>
+            <file>../Demo/Demo1DataProviderTest.php</file>
+            <file>../Demo/Demo0Test.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>

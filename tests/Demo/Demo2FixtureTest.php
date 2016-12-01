@@ -2,8 +2,8 @@
 namespace Smile\PHPUnitTest\Tests\Demo;
 use Smile\PHPUnitTest\Tests\SmilePHPUnitCase;
 
-$file = dirname(__DIR__).'/SmilePHPUnitCase.php';
-include_once($file);
+//$file = dirname(__DIR__).'/SmilePHPUnitCase.php';
+//include_once($file);
 
 /**
  * 基境
@@ -13,7 +13,7 @@ include_once($file);
  * 模板方法将分别在测试用例类的第一个测试运行之前和测试用例类的最后一个测试运行之后调用
  * @backupGlobals disabled
  */
-class Demo2Fixture extends \PHPUnit_Framework_TestCase{
+class Demo2FixtureTest extends \PHPUnit_Framework_TestCase{
     /**
      * 数据提供器
      * @return array

@@ -2,8 +2,8 @@
 namespace Smile\PHPUnitTest\Tests\Demo;
 use Smile\PHPUnitTest\Tests\SmilePHPUnitCase;
 
-$file = dirname(__DIR__).'/SmilePHPUnitCase.php';
-include_once($file);
+//$file = dirname(__DIR__).'/SmilePHPUnitCase.php';
+//include_once($file);
 
 class SomeClass
 {
@@ -36,7 +36,7 @@ class SomeClassHasMethod
  * 他只需要提供和真正的组件同样的 API 即可，这样被测系统就会以为它是真正的组件！
  * @backupGlobals disabled
  */
-class Demo2Stubs extends \PHPUnit_Framework_TestCase{
+class Demo3StubsTest extends \PHPUnit_Framework_TestCase{
     /**
      * 桩测试
      * SomeClass类不包含method方法

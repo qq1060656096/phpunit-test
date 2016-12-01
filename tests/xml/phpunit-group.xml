@@ -1,0 +1,19 @@
+<phpunit bootstrap="../TestInit.php">
+    <testsuites>
+        <testsuite name="demo_group">
+            <file>../Demo/Demo4Group1Test.php</file>
+            <file>../Demo/Demo4Group0Test.php</file>
+        </testsuite>
+    </testsuites>
+    <groups>
+        <!-- 执行分组 -->
+        <include>
+            <group>demo_group_method_2</group>
+            <group>demo_group_class</group>
+        </include>
+        <!-- 禁用分组 -->
+        <exclude>
+            <group>demo_group_method_2</group>
+        </exclude>
+    </groups>
+</phpunit>
