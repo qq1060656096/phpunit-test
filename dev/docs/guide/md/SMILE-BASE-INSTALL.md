@@ -16,11 +16,11 @@
 	"repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/qq1060656096/php-base.git"
+            "url": "https://git.coding.net/qq1060656096/phpunit-test.git"
         }
     ],
 	"require-dev": {
-		"smile/data-dictionary": "dev-develop"
+		"smile/phpunit-test": "dev-master"
     }
 }	
 ```
