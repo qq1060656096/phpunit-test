@@ -109,4 +109,8 @@ class Demo3StubsTest extends \PHPUnit_Framework_TestCase{
         // 现在调用 $stub->doSomething() 将返回 'foo'。
         $this->assertTrue( $stub->doSomething());
     }
+    public function feixin()
+    {
+        echo "afdadad";
+    }
 }
