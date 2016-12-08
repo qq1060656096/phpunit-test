@@ -25,5 +25,6 @@ phpunit --configuration 从XML文件读取配置
 * **目录执行测试** phpunit --configuration xml/phpunit-dir.xml
 * **倒序执行测试** phpunit --configuration xml/phpunit-order-desc.xml
 * **分组执行测试** phpunit --configuration xml/phpunit-group.xml
+* **分组执行测试** phpunit --configuration xml/phpunit-group-account-getByUid.xml
 
 
