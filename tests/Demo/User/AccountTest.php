@@ -5,11 +5,12 @@ use Smile\PHPUnitTest\Tests\SmilePHPUnitCase;
 
 /**
  * 用户账户查询测试
- * Class AccountQueryTest
+ * Class AccountTest
  * @package Smile\PHPUnitTest\Tests\Demo\User
  * @group account
+ * @backupGlobals disabled
  */
-class AccountQueryTest extends SmilePHPUnitCase{
+class AccountTest extends SmilePHPUnitCase{
     protected function setUp(){
         parent::setUp();
     }
@@ -20,21 +21,18 @@ class AccountQueryTest extends SmilePHPUnitCase{
      * @group account-getByUid
      */
     public function testDeleteTestGetByUidRecord(){
-        echo __METHOD__,"\n";
         $this->conn->delete('account', ['uid' => 1]);
         $this->assertTrue(true);
-
     }
 
     /**
      * 创建testGetByUid()测试记录
-     * @depends testDeleteTestGetByUidRecord
+     *
      * @group account-create
      * @group account-getByUid
      *
      */
-    public function tesCreateTestGetByUidRecord(){
-        echo __METHOD__,"\n";
+    public function testCreateTestGetByUidRecord(){
         $data = [
             'uid'       => 1,
             'money'     => 12345.678,
@@ -42,21 +40,17 @@ class AccountQueryTest extends SmilePHPUnitCase{
             'created'   => '2016-12-07 16:19:03',
             'changed'   => '2016-12-07 16:19:03',
         ];
-        $this->conn->insert('account',$data);
-        $this->assertTrue(true);
-
+        $rows = $this->conn->insert('account',$data);
     }
 
     /**
      * 测试获取用户信息
-     *
      * @group account-getByUid
      */
     public function testGetByUid(){
         $uid        = 1;
         $account    = new Account();
         $data       = $account->getByUid($uid);
-        print_r($data);
         $this->assertEquals('1', $data['uid']);
         $this->assertEquals('12345.678', $data['money']);
         $this->assertEquals('2016-12-07 16:19:03', $data['created']);
@@ -73,7 +67,7 @@ class AccountQueryTest extends SmilePHPUnitCase{
 
     /**
      * 测试创建
-     * @depends testDeleteTestCreateRecord
+     *
      * @group account-create
      *
      */
@@ -83,15 +77,22 @@ class AccountQueryTest extends SmilePHPUnitCase{
         $lastInsertId   = $account->create($uid);
         $isInsert       = $lastInsertId > 0 ? true : false;
         $this->assertTrue($isInsert, "insert account failed:uid=2");
+
+        $data           = $account->getByUid($uid);
+        $createdTimestamp = strtotime($data['created']);
+        $this->assertEquals("2", $data['uid']);
+        $this->assertTrue(time()>=$createdTimestamp);
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException \Doctrine\DBAL\DBALException
      * @group account-create
      */
-    public function btestCreateWithStringUid(){
+    public function testCreateWithStringUid(){
         $uid    = "abcd";
         $account= new Account();
         $lastInsertId   = $account->create($uid);
+
     }
+
 }
