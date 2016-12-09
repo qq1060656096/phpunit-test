@@ -36,7 +36,7 @@ class SomeClassHasMethod
  * 他只需要提供和真正的组件同样的 API 即可，这样被测系统就会以为它是真正的组件！
  * @backupGlobals disabled
  */
-class Demo3StubsTest extends \PHPUnit_Framework_TestCase{
+class Demo3Stubs1Test extends \PHPUnit_Framework_TestCase{
     /**
      * 桩测试
      * SomeClass类不包含method方法
@@ -108,9 +108,5 @@ class Demo3StubsTest extends \PHPUnit_Framework_TestCase{
         $stub->expects($this->any())->method('doSomething')->willReturn(true);
         // 现在调用 $stub->doSomething() 将返回 'foo'。
         $this->assertTrue( $stub->doSomething());
-    }
-    public function feixin()
-    {
-        echo "afdadad";
     }
 }

@@ -4,7 +4,7 @@ namespace Smile\PHPUnitTest\Tests\Base\Product;
 use Smile\PHPUnitTest\Tests\Base\Base;
 use Smile\PHPUnitTest\Tests\Demo\Product\Exeption\ProductException;
 
-class Product extends Base{
+class ProductBase extends Base{
     protected $_data = null;
     public function __construct($product_id=null)
     {

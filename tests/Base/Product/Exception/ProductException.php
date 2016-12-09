@@ -1,5 +1,5 @@
 <?php
-namespace Smile\PHPUnitTest\Tests\Demo\Product\Exeption;
+namespace Smile\PHPUnitTest\Tests\Demo\Product\Exception;
 
 class ProductException extends \Exception{
 

@@ -17,12 +17,21 @@ class ProductTest extends SmilePHPUnitCase{
      */
     protected $create_insert_id = 0;
 
+    /**
+     * @group product-getById
+     * @group product-create
+     * @group product-delete
+     */
     public function testDeleteCreateRecord(){
         $this->conn->delete('product',['name'=>'测试产品2016-12-08 17:05']);
     }
 
+    /**
+     * @group product-getById
+     * @group product-create
+     */
     public function testCreate(){
-        $product        = new Product();
+        $product        = new ProductBase();
         $lastInsertId   = $product->create(
             '测试产品2016-12-08 17:05',
             123.45 , 456.78, 1,20,15
@@ -41,9 +50,10 @@ class ProductTest extends SmilePHPUnitCase{
 
     /**
      * @depends testCreate
+     * @group product-getById
      */
     public function testGetById($lastInsertId){
-        $product    = new Product();
+        $product    = new ProductBase();
         $data       = $product->getById($lastInsertId);
         $this->assertEquals($lastInsertId, $data['pid']);
         $this->assertEquals("测试产品2016-12-08 17:05", $data['name']);
@@ -51,14 +61,21 @@ class ProductTest extends SmilePHPUnitCase{
         $this->assertEquals("456.78", $data['point']);
 
         //创建产品直接获取产品信息
-        $product    = new Product($lastInsertId);
+        $product    = new ProductBase($lastInsertId);
         $this->assertEquals("123.45", $product->getPrice());
         $this->assertEquals("456.78", $product->getPoint());
         $this->assertEquals("5", ''.$product->getQuantity());
     }
 
+    /**
+     * 非法字符串查询
+     * @group product-getById
+     */
     public function testGetByIdWithStringProductId(){
-        $product    = new Product();
+        $product    = new ProductBase();
         $data       = $product->getById('abcd');
+        $this->assertFalse($data);
     }
+
+
 }
