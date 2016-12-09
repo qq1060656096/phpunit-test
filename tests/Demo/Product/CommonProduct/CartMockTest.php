@@ -63,7 +63,6 @@ class CartMockTest extends SmilePHPUnitCase{
      * @expectedExceptionCode 101
      */
     public function testAddProductThrowExceptionWithZeroNum(){
-        echo __METHOD__,"\n";
         //创建Product桩件
         $productMock  = $this->createMock(Product::class);
         $productMock->method('getPrice')->willReturn(678.91);
