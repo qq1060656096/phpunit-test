@@ -1,6 +1,11 @@
 phpunit-test单元测试说明
 ===============================
 
+```php
+1. 在tests\Base\DB.php配置数据库信息
+2. 导入dev/sql目录下的sql文件到数据库
+3. 请在tests目录中运行命令
+```
 
 
 phpunit --bootstrap 引导文件
@@ -25,6 +30,6 @@ phpunit --configuration 从XML文件读取配置
 * **目录执行测试** phpunit --configuration xml/phpunit-dir.xml
 * **倒序执行测试** phpunit --configuration xml/phpunit-order-desc.xml
 * **分组执行测试** phpunit --configuration xml/phpunit-group.xml
-* **分组执行测试** phpunit --configuration xml/phpunit-group-account-getByUid.xml
+* **购物车分组执行测试** phpunit --configuration xml/phpunit-cart-mock-group-cart-addProduct.xml
 
 

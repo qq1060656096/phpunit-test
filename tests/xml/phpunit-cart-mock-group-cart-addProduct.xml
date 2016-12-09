@@ -1,0 +1,14 @@
+<phpunit bootstrap="../TestInit.php">
+    <testsuites>
+        <testsuite name="demo_group">
+            <directory>../Demo</directory>
+        </testsuite>
+    </testsuites>
+    <groups>
+        <!-- 执行分组 -->
+        <include>
+            <group>cart-addProduct</group>
+        </include>
+    </groups>
+</phpunit>
+
