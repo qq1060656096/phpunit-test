@@ -1,9 +1,10 @@
 <?php
 namespace Smile\PHPUnitTest\Tests\Base\Product\CommonProduct;
 
-use Smile\PHPUnitTest\Tests\Base\Product\CommonProduct\Product;
-use Smile\PHPUnitTest\Tests\Base\Product\Exeption\CartException;
-use Smile\PHPUnitTest\Tests\Base\Product\Exeption\ProductException;
+use Smile\PHPUnitTest\Tests\Base\Product\CartInterface;
+use Smile\PHPUnitTest\Tests\Base\Product\Exception\CartException;
+use Smile\PHPUnitTest\Tests\Base\Product\Exception\ProductException;
+use Smile\PHPUnitTest\Tests\Base\Product\ProductBase;
 
 class Cart implements CartInterface{
     protected $data     = null;
@@ -29,10 +30,14 @@ class Cart implements CartInterface{
      * @param Product $product 产品
      * @param integer $num 数量
      * @return boolean
+     * @throws CartException 异常
      */
-    public function addProduct(Product $product, $num){
-        if(!is_numeric($num)){
+    public function addProduct(ProductBase $product, $num){
+        if(!is_numeric($num) || !ctype_digit("$num") ){
             throw new CartException('购买数量不是整数', CartException::NUM_NOT_INTEGER);
+        }
+        if($num < 1){
+            throw new CartException('购买数量必须大于0', CartException::NUM_THAN_ZERO);
         }
         $this->product = $product;
         $this->num     = $num;
@@ -57,20 +62,24 @@ class Cart implements CartInterface{
         return $this->payMoney;
     }
 
+    public function getNum(){
+        return $this->num;
+    }
+
     /**
      * 结算
      */
     public function settle(){
 
         if(!$this->product->isCheckType()){
-            throw new ProductException(ProductException::TYPE_ERROR);//不是普通商品
+            throw new ProductException('不是普通商品', ProductException::TYPE_ERROR);
         }
         if($this->product->getQuantity() < 1){
-            throw new ProductException(ProductException::NOT_QUANTITY);//没有库存
+            throw new ProductException('没有库存', ProductException::NOT_QUANTITY);
         }
         if($this->product->getQuantity() < $this->num){
-            throw new ProductException(ProductException::LACK_QUANTITY);//库存不足
+            throw new ProductException('库存不足', ProductException::LACK_QUANTITY);
         }
-
+        return true;
     }
 }
