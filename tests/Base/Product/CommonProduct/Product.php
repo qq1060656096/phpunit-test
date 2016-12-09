@@ -1,9 +1,9 @@
 <?php
-namespace Smile\PHPUnitTest\Tests\Demo\Product\CommonProduct;
+namespace Smile\PHPUnitTest\Tests\Base\Product\CommonProduct;
 
-use Smile\PHPUnitTest\Tests\Base\Product\Product;
+use Smile\PHPUnitTest\Tests\Base\Product\ProductBase;
 
-class Prodcut extends Product{
+class Product extends ProductBase{
     const TYPE = 0;
 
     public function isCheckType()

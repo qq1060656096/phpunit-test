@@ -66,4 +66,13 @@ class Product extends Base{
         $result = $this->db_connection->insert('product', $data);
         return $result ? $this->db_connection->lastInsertId():0;
     }
+
+    /**
+     * 检查商品类型
+     * @param integer $type
+     * @return bool
+     */
+    public function isCheckType($type){
+        return $this->_data['type']==$type ? true : false;
+    }
 }
