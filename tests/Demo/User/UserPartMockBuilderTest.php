@@ -17,33 +17,18 @@ use Smile\PHPUnitTest\Tests\SmilePHPUnitCase;
  * @group user-subs-mock
  * @backupGlobals disabled
  */
-class UserSubsMockBuilderTest extends SmilePHPUnitCase{
+class UserPartMockBuilderTest extends SmilePHPUnitCase{
     /**
      * 基镜共享
      */
     public static function setUpBeforeClass(){
 
         $connect = DB2::getInstance();
-        $connect->delete('users', ['phone' => '20161215001']);
-        $connect->delete('users', ['phone' => '20161215002']);
-        $connect->delete('users', ['phone' => '20161215003']);
+        $connect->delete('users', ['phone' => '20161215011']);
+        $connect->delete('users', ['phone' => '20161215012']);
     }
 
-
-    /**
-     * 测试注册
-     */
-    public function testRegister(){
-        $user = new User();
-        $uid  = $user->register('20161215001','123456');
-        $this->assertTrue($uid>0);
-    }
-
-    /**
-     * 部分模拟测试
-     *
-     */
-    public function testRegisterWithMockBuilder(){
+    public function testPartMockRegisterCallOnceGeneratePassword(){
         //类建立仿件对象，只模仿 generatePassword() 方法。
         $userMock = $this->getMockBuilder('\Smile\PHPUnitTest\Tests\Base\User\User')
             ->setMethods(['generatePassword'])
@@ -51,16 +36,28 @@ class UserSubsMockBuilderTest extends SmilePHPUnitCase{
         //建立预期状况：generatePassword() 方法将会被调用一次，
         // 并且将以字符串 '10470c3b4b1fed12c3baac014be15fac67c6e815' 返回值。
         $userMock->expects($this->once())
-                ->method('generatePassword')
-                ->willReturn('10470c3b4b1fed12c3baac014be15fac67c6e815');
-        $uid    = $userMock->register('20161215002','123456');
+            ->method('generatePassword')
+            ->willReturn('10470c3b4b1fed12c3baac014be15fac67c6e815');
+        $uid    = $userMock->register('20161215011','123456');
         $this->assertTrue($uid>0);
 
-        $sql    = "select * from users where phone='20161215002'";
+        $sql    = "select * from users where phone='20161215011'";
         $result = $this->conn->fetchAssoc($sql);
         $this->assertEquals("$uid", $result['uid']);
-        $this->assertEquals("20161215002", $result['phone']);
+        $this->assertEquals("20161215011", $result['phone']);
         $this->assertEquals("10470c3b4b1fed12c3baac014be15fac67c6e815", $result['pass']);
+
+        //这里会报错,因为调用了多次
+        $result = $userMock->generatePassword('fff');
+        $this->assertEquals('123456', $result);
+    }
+
+    /**
+     * 部分模拟测试
+     *
+     */
+    public function testPartMockRegisterCallAnyGeneratePassword(){
+
 
 
         //类建立仿件对象，只模仿 generatePassword() 方法。
@@ -72,15 +69,17 @@ class UserSubsMockBuilderTest extends SmilePHPUnitCase{
         $userMock->expects($this->any())
                 ->method('generatePassword')
                 ->willReturn('123456');
-        $uid = $userMock->register('20161215003','123456');
+        $uid = $userMock->register('20161215012','123456');
         $this->assertTrue($uid>0);
 
 
-        $sql    = "select * from users where phone='20161215003'";
+        $sql    = "select * from users where phone='20161215012'";
         $result = $this->conn->fetchAssoc($sql);
         $this->assertEquals("$uid", $result['uid']);
-        $this->assertEquals("20161215003", $result['phone']);
+        $this->assertEquals("20161215012", $result['phone']);
         $this->assertEquals("123456", $result['pass']);
+        $result = $userMock->generatePassword('fff');
+        $this->assertEquals('123456', $result);
     }
 
 
