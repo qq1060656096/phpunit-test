@@ -1,30 +1,10 @@
 <?php
 namespace Smile\PHPUnitTest\Tests\Demo;
+
+use Smile\PHPUnitTest\Tests\Base\User\Account;
+use Smile\PHPUnitTest\Tests\Base\User\User;
 use Smile\PHPUnitTest\Tests\SmilePHPUnitCase;
-
-//$file = dirname(__DIR__).'/SmilePHPUnitCase.php';
-//include_once($file);
-
-class SomeClass
-{
-    public function doSomething()
-    {
-        // 随便做点什么。
-    }
-
-}
-
-class SomeClassHasMethod
-{
-    public function doSomething()
-    {
-        // 随便做点什么。
-    }
-    public function method(){
-
-    }
-}
-
+use Smile\PHPUnitTest\Tests\Base\DB as DB2;
 
 /**
  * 桩件、替身测试
@@ -37,76 +17,39 @@ class SomeClassHasMethod
  * @backupGlobals disabled
  */
 class Demo3Stubs1Test extends \PHPUnit_Framework_TestCase{
+
     /**
-     * 桩测试
-     * SomeClass类不包含method方法
+     * 基镜共享
      */
-    public function testSomeClass()
-    {
-        // 为 SomeClass 类创建桩件。
-        $stub = $this->createMock(SomeClass::class);
-        // 配置桩件。
-        $stub->method('doSomething')
-            ->willReturn('foo');
-        // 现在调用 $stub->doSomething() 将返回 'foo'。
-        $this->assertEquals('foo', $stub->doSomething());
-        $message = __METHOD__;
-        fwrite(STDOUT," $message  \n");
+    public static function setUpBeforeClass(){
+
+        $connect = DB2::getInstance();
+        $connect->delete('users', ['phone' => '20170618185901']);
+        $connect->delete('users', ['phone' => '20170618185902']);
     }
 
     /**
-     * 桩异常测试
-     * @expectedException \Exception
+     * 测试用户注册打桩
      */
-    public function testThrowExceptionStub()
+    public function testUserRegisterStubs()
     {
-        $message = __METHOD__;
-        fwrite(STDOUT," $message  \n");
+        // Account类我们已经测试过了,我们不需重复去测试Account类中的方法
+        // 这时我们要打桩
+        //Account类建立仿件对象，只模仿 create() 方法。
+        $accountMock = $this->getMockBuilder(Account::class)
+            ->setMethods(['create'])
+            ->getMock();
+        // create()可以调用多次,并且返回值为"1"。
+        $accountMock->expects($this->any())
+            ->method('create')
+            ->willReturn(1);
+        $this->assertEquals('1', $accountMock->create(100));
 
-        // 为 SomeClass 类创建桩件
-        $stub = $this->createMock(SomeClass::class);
-
-        // 配置桩件。
-        $stub->method('doSomething')
-            ->will($this->throwException(new \Exception));
-
-        // $stub->doSomething() 抛出异常
-        $stub->doSomething();
-
-    }
-
-    /**
-     * 桩returnArgument()测试
-     *
-     */
-    public function testSomeClassReturnArgument1Stub()
-    {
-        // 为 SomeClass 类创建桩件。
-        $stub = $this->createMock(SomeClass::class);
-        // 配置桩件。
-        $stub->method('doSomething')
-            ->will($this->returnArgument(1));
-        // $stub->doSomething('foo') 返回 'foo'
-        $this->assertTrue( $stub->doSomething('0',true));
-
-        // 配置桩件。
-        $stub->method('doSomething')
-            ->will($this->returnArgument(1));
-        // $stub->doSomething('foo') 返回 'foo'
-        $this->assertEquals('foo', $stub->doSomething('00','foo'));
-        $message = __METHOD__;
-        fwrite(STDOUT," $message  \n\n");
-    }
-
-    /**
-     * 桩测试
-     * SomeClassHasMethod包含method方法指定使用以下方式调用
-     */
-    public function testSomeClass2(){
-        // 为 SomeClass 类创建桩件。
-        $stub = $this->createMock(SomeClassHasMethod::class);
-        $stub->expects($this->any())->method('doSomething')->willReturn(true);
-        // 现在调用 $stub->doSomething() 将返回 'foo'。
-        $this->assertTrue( $stub->doSomething());
+        //现在我们注册,只会在user表中插入记录,不会再account表中插入记录
+        $user = new User();
+        $uid = $user->register('20170618185901', '123', $accountMock);
+        $bool = $uid > 0 ? true : false;
+        $this->assertTrue($bool);
     }
 }
+

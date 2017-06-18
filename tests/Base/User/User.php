@@ -11,11 +11,12 @@ class User extends Base {
      * 用户注册
      * @param string $phone 手机号码
      * @param string $pass 密码
+     * @param Account $account
      * @return int|string
      * @throws AccountException
      * @throws UserException
      */
-    public function register($phone,$pass){
+    public function register($phone,$pass, Account $account){
         $data = [
             'phone' => $phone,
             'pass'  => $this->generatePassword($pass)
@@ -26,7 +27,6 @@ class User extends Base {
             throw new UserException(UserException::USER_CREATE_FAIL,'用户创建失败');
         }
 
-        $account = new Account();
         if(!$account->create($uid)){
             throw new AccountException(AccountException::ACCOUNT_CREATE_FAIL,'账户创建失败');
         }

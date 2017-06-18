@@ -13,8 +13,13 @@ phpunit --bootstrap 引导文件
 > --bootstrap 在测试前先运行一个 "bootstrap" PHP 文件
 * **--bootstrap引导测试:** phpunit --bootstrap TestInit.php Demo/
 
+# 测试单个方法
+* **测试单个方法:** phpunit --bootstrap TestInit.php Demo/Demo0Test --filter=test
 
-@group 分组使用
+# 测试打桩
+* **测试打桩:** phpunit --bootstrap TestInit.php Demo/Demo3Stubs1Test.php
+
+# @group 分组使用
 -----
 > 测试可以用 @group 标注来标记为属于一个或多个组
 * **demo_group_class:** phpunit --bootstrap TestInit.php Demo/ --group demo_group_class
