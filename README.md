@@ -19,3 +19,10 @@ how to write good unit testing
 ### 7. 单元测试中的"伪装术"(mock仿件‘桩件或者我们说的的打桩)[查看文档](./docs/MOCK-UNIT-TESTING.md.md)
 
 
+> tests目录下是php单元测试demo
+### 使用步骤
+```php
+1. 在tests\Base\DB.php配置数据库信息
+2. 导入dev/sql目录下的sql文件到数据库
+3. 请在tests目录中运行命令
+```

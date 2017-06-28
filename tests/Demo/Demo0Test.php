@@ -13,6 +13,12 @@ use Smile\PHPUnitTest\Tests\SmilePHPUnitCase;
 class Demo0Test extends SmilePHPUnitCase
 {
     /**
+     * 单个测试
+     */
+    public function test1(){
+        $this->assertTrue(true);
+    }
+    /**
      * 断言测试
      */
     public function testDemo(){

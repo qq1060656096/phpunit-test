@@ -27,5 +27,11 @@
     "require-dev": {
         "symfony/yaml": "~2.3|~3.0",
         "phpunit/phpunit": "^5.4"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
     }
 }
