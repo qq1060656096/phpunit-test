@@ -42,8 +42,8 @@ class Demo3Stubs1Test extends \PHPUnit_Framework_TestCase{
         // create()可以调用多次,并且返回值为"1"。
         $accountMock->expects($this->any())
             ->method('create')
-            ->willReturn(1);
-        $this->assertEquals('1', $accountMock->create(100));
+            ->willReturn(654321);
+        $this->assertEquals('654321', $accountMock->create(100));
 
         //现在我们注册,只会在user表中插入记录,不会再account表中插入记录
         $user = new User();
