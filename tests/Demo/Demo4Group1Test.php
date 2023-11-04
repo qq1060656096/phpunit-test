@@ -22,7 +22,7 @@ class Demo4Group1Test extends \PHPUnit_Framework_TestCase{
     }
 
     /**
-     * @group demo_group_method_2
+     * @group demo_group_method_3
      */
     public function testGroup1(){
         $message = __METHOD__;
